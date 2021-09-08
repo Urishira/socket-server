@@ -1,5 +1,4 @@
 import express from "express";
-import userRoutes from "../routes/userRoutes";
 
 import dotenv from "dotenv";
 import cors from "cors";
@@ -7,42 +6,41 @@ import http from "http";
 import { Sockets } from "../sockets/Sockets";
 import path from "path";
 
+import { connectDataBase } from "../database/config";
+import { UserRoutes } from "../users/routes/UserRoutes";
+import { LoginRoutes } from "../login/routes/LoginRoutes";
+
 dotenv.config();
 
 class Server {
   public app: express.Application;
-  private PORT: string | number;
-  private apiPath = {
-    user: "/api/user",
-    auth: "/api/auth",
-    product: "/api/product",
-    categories: "/api/categories",
-    search: "/api/search",
-    uploadFile: "/api/upload",
-  };
-  private server: http.Server;
   public socket: Sockets;
+  public userRoutes: UserRoutes = new UserRoutes();
+  public loginRoutes: LoginRoutes = new LoginRoutes();
+  private PORT: string | number;
+  private server: http.Server;
   constructor() {
     this.PORT = process.env.PORT || 8000;
     this.app = express();
+    this.databaseConect();
+    this.config();
     this.server = new http.Server(this.app);
     this.socket = new Sockets(this.server);
-    this.apiPath;
-    this.routes();
-    this.middleware();
+    this.userRoutes.routes(this.app);
+    this.loginRoutes.routes(this.app);
   }
 
-  routes() {
-    this.app.use(this.apiPath.user, userRoutes);
-  }
-
-  private middleware() {
+  private config(): void {
     this.app.use(cors());
-    this.app.use(express.static(path.join(__dirname, "../client")));
+    this.app.use(express.static(path.join(__dirname, "../dist/public")));
     this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: false }));
+  }
+  async databaseConect() {
+    await connectDataBase();
   }
 
-  listen() {
+  public listen() {
     this.server.listen(this.PORT, () => {
       console.log(`The server is running on Port ${this.PORT}`);
     });
