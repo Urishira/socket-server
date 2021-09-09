@@ -8,9 +8,6 @@ const fieldValidator_1 = require("../../middlewares/fieldValidator");
 const jwtValidator_1 = require("../../helpers/token/jwtValidator");
 class UserRoutes {
     routes(app) {
-        app.route("/").get((req, res) => {
-            res.status(200).send({ message: "Get request successfully" });
-        });
         app
             .route("/users")
             .get(userController_1.userGet)

@@ -32,9 +32,9 @@ class Server {
 
   private config(): void {
     this.app.use(cors());
-    this.app.use(express.static(path.join(__dirname, "../dist/public")));
+    this.app.use(express.static(path.join(__dirname, "../public")));
     this.app.use(express.json());
-    this.app.use(express.urlencoded({ extended: false }));
+    this.app.use(express.urlencoded({ extended: true }));
   }
   async databaseConect() {
     await connectDataBase();

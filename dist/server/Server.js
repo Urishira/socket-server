@@ -37,9 +37,9 @@ class Server {
     }
     config() {
         this.app.use(cors_1.default());
-        this.app.use(express_1.default.static(path_1.default.join(__dirname, "../dist/public")));
+        this.app.use(express_1.default.static(path_1.default.join(__dirname, "../public")));
         this.app.use(express_1.default.json());
-        this.app.use(express_1.default.urlencoded({ extended: false }));
+        this.app.use(express_1.default.urlencoded({ extended: true }));
     }
     databaseConect() {
         return __awaiter(this, void 0, void 0, function* () {

@@ -12,10 +12,6 @@ import { jwtValidator } from "../../helpers/token/jwtValidator";
 
 export class UserRoutes {
   public routes(app: Application): void {
-    app.route("/").get((req: Request, res: Response) => {
-      res.status(200).send({ message: "Get request successfully" });
-    });
-
     app
       .route("/users")
       .get(userGet)
