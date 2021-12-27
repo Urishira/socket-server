@@ -9,8 +9,8 @@ class LoginRoutes {
         app
             .route("/login")
             .post([
-            express_validator_1.check("email", "you must send an email").isEmail(),
-            express_validator_1.check("password", "you need to send a password").not().isEmpty(),
+            (0, express_validator_1.check)("email", "you must send an email").isEmail(),
+            (0, express_validator_1.check)("password", "you need to send a password").not().isEmpty(),
             fieldValidator_1.fieldValidator,
         ], login_1.login);
         app.route("/renew").get();

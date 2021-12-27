@@ -45,7 +45,7 @@ exports.userGet = userGet;
 const userPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, password } = req.body;
     try {
-        const user = yield createUserInDB_1.createUserInDB({ name, email, password });
+        const user = yield (0, createUserInDB_1.createUserInDB)({ name, email, password });
         return res.status(201).json({
             msg: "User created",
             user,

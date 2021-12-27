@@ -34,7 +34,6 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 msg: "User / Password are not correct state:false",
             });
         }
-        // verify password
         const validPassword = bcrypt_1.default.compareSync(password, user.password);
         if (!validPassword) {
             return res.status(400).json({
@@ -42,7 +41,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 msg: "Password is not correct",
             });
         }
-        const token = yield jwtGenerator_1.jwtGenerator(user.id);
+        const token = yield (0, jwtGenerator_1.jwtGenerator)(user.id);
         res.json({
             ok: true,
             user,
@@ -60,7 +59,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.login = login;
 const reValidToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.user;
-    const token = yield jwtGenerator_1.jwtGenerator(id);
+    const token = yield (0, jwtGenerator_1.jwtGenerator)(id);
     res.json({
         ok: true,
         token,

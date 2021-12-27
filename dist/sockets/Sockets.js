@@ -2,22 +2,24 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Sockets = void 0;
 const socket_io_1 = require("socket.io");
+const BandList_1 = require("./models/BandList");
 class Sockets {
     constructor(server) {
         this.io = new socket_io_1.Server(server);
-        this.socket();
+        this.bandList = new BandList_1.BandList();
+        this.socketEvents();
     }
-    socket() {
+    socketEvents() {
         this.io.on("connection", (socket) => {
             console.log(`a user connected: ${socket.id}`);
-            socket.on("disconnect", () => {
-                console.log(`socket disconnected: ${socket.id}`);
-            });
-            socket.on("send-message", (payload, callback) => {
-                const id = new Date().getTime();
-                callback(id);
-                this.io.emit("send-message", payload);
-            });
+            //Emit all to the coneection client, all current bands
+            socket.emit("bands", this.bandList.getBand());
+        });
+    }
+    socketBands() {
+        this.io.on("connection", (socket) => {
+            console.log("cliente conected");
+            //Emit to the client, whole current bands
         });
     }
 }

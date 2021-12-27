@@ -27,7 +27,7 @@ class Server {
         this.userRoutes = new UserRoutes_1.UserRoutes();
         this.loginRoutes = new LoginRoutes_1.LoginRoutes();
         this.PORT = process.env.PORT || 8000;
-        this.app = express_1.default();
+        this.app = (0, express_1.default)();
         this.databaseConect();
         this.config();
         this.server = new http_1.default.Server(this.app);
@@ -36,14 +36,14 @@ class Server {
         this.loginRoutes.routes(this.app);
     }
     config() {
-        this.app.use(cors_1.default());
+        this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.static(path_1.default.join(__dirname, "../public")));
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: true }));
     }
     databaseConect() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield config_1.connectDataBase();
+            yield (0, config_1.connectDataBase)();
         });
     }
     listen() {
