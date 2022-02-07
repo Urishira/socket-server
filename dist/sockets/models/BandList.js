@@ -5,12 +5,11 @@ const Band_1 = require("./Band");
 class BandList {
     constructor() {
         this.bands = [];
-    }
-    contructor() {
         this.bands = [
+            new Band_1.Band("Jhon bo vid"),
             new Band_1.Band("Scape the fate"),
             new Band_1.Band("Scape the fate"),
-            new Band_1.Band("Scape the fate"),
+            new Band_1.Band("Black veil brides")
         ];
     }
     addBand(name) {

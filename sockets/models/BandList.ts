@@ -1,12 +1,13 @@
-import { Band } from "./Band";
+import { Band, bandProp } from "./Band";
 
 export class BandList {
-  bands: Band[] = [];
-  contructor() {
+  bands:Band[]= [];
+  constructor() {
     this.bands = [
+      new Band("Jhon bo vid"),
       new Band("Scape the fate"),
       new Band("Scape the fate"),
-      new Band("Scape the fate"),
+      new Band("Black veil brides")
     ];
   }
 

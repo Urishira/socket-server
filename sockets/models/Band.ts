@@ -1,6 +1,10 @@
 import { v4 } from "uuid";
-
-export class Band {
+export interface bandProp {
+  id: string;
+  name: string;
+  votes: number;
+}
+export class Band implements bandProp {
   id: string;
   name: string;
   votes: number;
