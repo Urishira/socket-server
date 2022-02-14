@@ -13,7 +13,6 @@ class Sockets {
         this.io.on("connection", (socket) => {
             console.log(`a user connected: ${socket.id}`);
             socket.emit("current-bands", this.bandList.getBand());
-            console.log(this.bandList.getBand());
             // increaseBand
             socket.on("increase-band-by-id", (id) => {
                 this.bandList.increaseBand(id);
@@ -22,6 +21,16 @@ class Sockets {
             // decreaseBand
             socket.on("delete-band", (id) => {
                 this.bandList.removeBand(id);
+                this.io.emit("current-bands", this.bandList.getBand());
+            });
+            //change band
+            socket.on("change-band", ({ id, name }) => {
+                this.bandList.changeName(id, name);
+                this.io.emit("current-bands", this.bandList.getBand());
+            });
+            socket.on("add-band", (name) => {
+                console.log(name);
+                this.bandList.addBand(name);
                 this.io.emit("current-bands", this.bandList.getBand());
             });
         });
